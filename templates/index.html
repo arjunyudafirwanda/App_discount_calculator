@@ -1,202 +1,198 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Kalkulator Diskon | Python Project</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
 
-    <link rel="icon"
+    <link
+      rel="icon"
       type="image/png"
       sizes="512x512"
-      href="{{ url_for('static', filename='images/favicon.png') }}">
-</head>
+      href="{{ url_for('static', filename='images/favicon.png') }}"
+    />
+  </head>
 
-<body>
-
+  <body>
     <div class="container">
+      <header class="navbar">
+        <a href="/" class="brand">
+          <span class="brand-icon">%</span>
+          <span>Discount<span class="brand-highlight">Calc</span></span>
+        </a>
 
-        <header class="navbar">
-            <a href="/" class="brand">
-                <span class="brand-icon">%</span>
-                <span>Discount<span class="brand-highlight">Calc</span></span>
-            </a>
+        <span class="project-label">ARJUN YUDA FIRWANDA</span>
+      </header>
 
-            <span class="project-label">ARJUN YUDA FIRWANDA</span>
-        </header>
+      <main class="main-content">
+        <section class="intro">
+          <span class="eyebrow">SMART PRICE CALCULATOR</span>
 
-        <main class="main-content">
+          <h1>
+            Hitung diskon dengan
+            <span>lebih mudah.</span>
+          </h1>
 
-            <section class="intro">
-                <span class="eyebrow">SMART PRICE CALCULATOR</span>
+          <p>
+            Masukkan harga barang, persentase diskon, dan jumlah barang untuk
+            mengetahui total pembayaran secara cepat dan akurat.
+          </p>
 
-                <h1>
-                    Hitung diskon dengan
-                    <span>lebih mudah.</span>
-                </h1>
+          <div class="features">
+            <div class="feature-item">
+              <span class="feature-icon">✓</span>
+              Perhitungan otomatis
+            </div>
 
-                <p>
-                    Masukkan harga barang, persentase diskon, dan jumlah
-                    barang untuk mengetahui total pembayaran secara cepat
-                    dan akurat.
-                </p>
+            <div class="feature-item">
+              <span class="feature-icon">✓</span>
+              Validasi input
+            </div>
 
-                <div class="features">
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        Perhitungan otomatis
-                    </div>
+            <div class="feature-item">
+              <span class="feature-icon">✓</span>
+              Hasil dalam Rupiah
+            </div>
+          </div>
+        </section>
 
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        Validasi input
-                    </div>
+        <section class="calculator-card">
+          <div class="card-heading">
+            <div>
+              <span class="card-label">DISCOUNT CALCULATOR</span>
+              <h2>Hitung Harga</h2>
+            </div>
 
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        Hasil dalam Rupiah
-                    </div>
-                </div>
-            </section>
+            <div class="percentage-icon">%</div>
+          </div>
 
-            <section class="calculator-card">
+          <form method="POST" action="{{ url_for('index') }}">
+            <div class="form-group">
+              <label for="harga">Harga Satuan Barang</label>
 
-                <div class="card-heading">
-                    <div>
-                        <span class="card-label">DISCOUNT CALCULATOR</span>
-                        <h2>Hitung Harga</h2>
-                    </div>
+              <div class="input-wrapper">
+                <span class="input-prefix">Rp</span>
 
-                    <div class="percentage-icon">%</div>
-                </div>
+                <input
+                  type="number"
+                  id="harga"
+                  name="harga"
+                  placeholder="Contoh: 150000"
+                  min="1"
+                  step="1"
+                  value="{{ form_data.harga }}"
+                  required
+                />
+              </div>
+            </div>
 
-                <form method="POST" action="{{ url_for('index') }}">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="diskon">Diskon (%)</label>
 
-                    <div class="form-group">
-                        <label for="harga">Harga Satuan Barang</label>
+                <input
+                  type="number"
+                  id="diskon"
+                  name="diskon"
+                  placeholder="Contoh: 10"
+                  min="0"
+                  max="100"
+                  step="any"
+                  value="{{ form_data.diskon }}"
+                  required
+                />
+              </div>
 
-                        <div class="input-wrapper">
-                            <span class="input-prefix">Rp</span>
+              <div class="form-group">
+                <label for="kuantitas">Kuantitas</label>
 
-                            <input
-                                type="number"
-                                id="harga"
-                                name="harga"
-                                placeholder="Contoh: 150000"
-                                min="1"
-                                step="1"
-                                value="{{ form_data.harga }}"
-                                required
-                            >
-                        </div>
-                    </div>
+                <input
+                  type="number"
+                  id="kuantitas"
+                  name="kuantitas"
+                  placeholder="Jumlah barang"
+                  min="1"
+                  step="1"
+                  value="{{ form_data.kuantitas }}"
+                  required
+                />
+              </div>
+            </div>
 
-                    <div class="form-row">
+            <div class="form-actions">
+              <button type="submit" class="calculate-button">
+                Hitung Diskon
+                <span>→</span>
+              </button>
 
-                        <div class="form-group">
-                            <label for="diskon">Diskon (%)</label>
+              <a
+                href="{{ url_for('index') }}"
+                class="reset-button"
+                aria-label="Reset formulir kalkulator"
+              >
+                ↻ Reset
+              </a>
+            </div>
+          </form>
 
-                            <input
-                                type="number"
-                                id="diskon"
-                                name="diskon"
-                                placeholder="Contoh: 10"
-                                min="0"
-                                max="100"
-                                step="any"
-                                value="{{ form_data.diskon }}"
-                                required
-                            >
-                        </div>
+          {% if error %}
+          <div class="error-message" role="alert">{{ error }}</div>
+          {% endif %} {% if hasil %}
 
-                        <div class="form-group">
-                            <label for="kuantitas">Kuantitas</label>
+          <div class="result-card" aria-live="polite">
+            <div class="result-heading">
+              <span>HASIL PERHITUNGAN</span>
+              <span class="success-label">Berhasil</span>
+            </div>
 
-                            <input
-                                type="number"
-                                id="kuantitas"
-                                name="kuantitas"
-                                placeholder="Jumlah barang"
-                                min="1"
-                                step="1"
-                                value="{{ form_data.kuantitas }}"
-                                required
-                            >
-                        </div>
+            <div class="result-row">
+              <span>Harga satuan</span>
+              <strong>{{ hasil.harga_satuan | rupiah }}</strong>
+            </div>
 
-                    </div>
+            <div class="result-row">
+              <span>Jumlah barang</span>
+              <strong>{{ hasil.kuantitas }} barang</strong>
+            </div>
 
-                    <button type="submit" class="calculate-button">
-                        Hitung Diskon
-                        <span>→</span>
-                    </button>
+            <div class="result-row">
+              <span>Subtotal</span>
+              <strong>{{ hasil.subtotal | rupiah }}</strong>
+            </div>
 
-                </form>
+            <div class="result-row discount-row">
+              <span>Diskon ({{ hasil.persentase_diskon }}%)</span>
+              <strong>-{{ hasil.nominal_diskon | rupiah }}</strong>
+            </div>
 
-                {% if error %}
-                    <div class="error-message" role="alert">
-                        {{ error }}
-                    </div>
-                {% endif %}
+            <div class="total-section">
+              <span>Total Pembayaran</span>
+              <h3>{{ hasil.total_akhir | rupiah }}</h3>
+              <p>Harga setelah potongan diskon</p>
+            </div>
+          </div>
 
-                {% if hasil %}
+          {% endif %}
+        </section>
+      </main>
 
-                    <div class="result-card" aria-live="polite">
-
-                        <div class="result-heading">
-                            <span>HASIL PERHITUNGAN</span>
-                            <span class="success-label">Berhasil</span>
-                        </div>
-
-                        <div class="result-row">
-                            <span>Harga satuan</span>
-                            <strong>{{ hasil.harga_satuan | rupiah }}</strong>
-                        </div>
-
-                        <div class="result-row">
-                            <span>Jumlah barang</span>
-                            <strong>{{ hasil.kuantitas }} barang</strong>
-                        </div>
-
-                        <div class="result-row">
-                            <span>Subtotal</span>
-                            <strong>{{ hasil.subtotal | rupiah }}</strong>
-                        </div>
-
-                        <div class="result-row discount-row">
-                            <span>Diskon ({{ hasil.persentase_diskon }}%)</span>
-                            <strong>-{{ hasil.nominal_diskon | rupiah }}</strong>
-                        </div>
-
-                        <div class="total-section">
-                            <span>Total Pembayaran</span>
-                            <h3>{{ hasil.total_akhir | rupiah }}</h3>
-                            <p>Harga setelah potongan diskon</p>
-                        </div>
-
-                    </div>
-
-                {% endif %}
-
-            </section>
-
-        </main>
-
-        <footer>
-            <p>
-                Arjun Yuda Firwanda |
-                © <span id="current-year"></span>
-                All rights reserved.
-            </p>
-        </footer>
-
+      <footer>
+        <p>
+          Arjun Yuda Firwanda | © <span id="current-year"></span>
+          All rights reserved.
+        </p>
+      </footer>
     </div>
 
-<script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
-
-</body>
+    <script
+      src="{{ url_for('static', filename='js/script.js') }}"
+      defer
+    ></script>
+  </body>
 </html>
